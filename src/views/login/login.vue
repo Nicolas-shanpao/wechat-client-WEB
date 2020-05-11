@@ -18,7 +18,7 @@
 <script>
 
   export default {
-    name: 'Home',
+    name: 'login',
     components: {},
     data() {
       return {
