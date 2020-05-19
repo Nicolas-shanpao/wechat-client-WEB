@@ -4,8 +4,11 @@
       <el-form-item label="账号" prop="username">
         <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
       </el-form-item>
-      <el-form-item label="邮箱" prop="username">
+      <el-form-item label="邮箱" prop="email">
         <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="手机" prop="phone">
+        <el-input v-model="ruleForm.phone" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="年龄" prop="age">
         <el-input v-model="ruleForm.age" autocomplete="off"></el-input>
@@ -55,16 +58,16 @@
             {required: true, message: '请输入邮箱', trigger: 'blur'}
           ],
           phone: [
-            {required: true, message: '请输入手机号', trigger: 'change'}
+            {required: true, message: '请输入手机号', trigger: 'blur'}
           ],
           age: [
-            {type: 'number', required: true, message: '请输入年龄', trigger: 'change'}
+            {type: 'number', required: true, message: '请输入年龄', trigger: 'blur'}
           ],
           sex: [
             {required: true, message: '请选择性别', trigger: 'change'}
           ],
           address: [
-            {required: true, message: '请选择活动资源', trigger: 'change'}
+            {required: true, message: '请输入用户地址', trigger: 'blur'}
           ],
           password: [
             {required: true, message: '请输入密码', trigger: 'blur'},
