@@ -16,10 +16,12 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key]);
 });
 import VueFullscreen from "vue-fullscreen";
+import vuetify from '@/plugins/vuetify';
 
 Vue.use(VueFullscreen);
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");
