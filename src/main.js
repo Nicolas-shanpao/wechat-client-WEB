@@ -17,11 +17,13 @@ Object.keys(filters).forEach(key => {
 });
 import VueFullscreen from "vue-fullscreen";
 import vuetify from '@/plugins/vuetify';
+import i18n from './lang' // internationalization
 
 Vue.use(VueFullscreen);
 new Vue({
   router,
   store,
+  i18n,
   vuetify,
   render: h => h(App)
 }).$mount("#app");

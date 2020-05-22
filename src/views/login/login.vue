@@ -1,21 +1,84 @@
 <template>
-  <div class="home">
-    <el-form :model="ruleForm" status-icon ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="账号" prop="username">
-        <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="checkPass">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+  <v-card
+      max-width="400"
+      class="mx-auto login"
+  >
+    <v-list-item>
+      <v-list-item-avatar color="#5aa6f8">
+        <img src="@/assets/image/logo.png" alt="" class="logo-image"/>
+
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">{{$t('login.title')}}</v-list-item-title>
+        <v-list-item-subtitle>
+          {{$t('login.subtitle')}}
+        </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    <div class="login-box">
+      <v-text-field
+          v-model="ruleForm.username"
+          filled
+          label="账号"
+          outlined
+          clearable
+          type="text"
+      ></v-text-field>
+      <v-text-field
+          v-model="ruleForm.password"
+          filled
+          label="密码"
+          outlined
+          clearable
+          type="password"
+      ></v-text-field>
+
+      <div class="btn-box">
+        <v-btn
+            text
+            color="#5aa6f8"
+        >
+          忘记密码
+        </v-btn>
+        <v-btn
+            text
+            color="#5aa6f8"
+        >
+          手机验证码登录
+        </v-btn>
+      </div>
+      <div class="huadong"></div>
+      <div class="btn-box">
+        <v-btn
+            text
+            color="#5aa6f8"
+        >
+          注册新账户
+        </v-btn>
+        <v-btn
+            width="100"
+            color="#5aa6f8"
+        >
+          登录
+        </v-btn>
+      </div>
+    </div>
+    <v-select
+        v-model="select"
+        :items="items"
+        :label="$t('login.language')"
+        item-text="language"
+        item-value="key"
+        return-object
+        class="select-language"
+        @change="changeLanguage"
+    ></v-select>
+  </v-card>
 </template>
 
 <script>
+  import {getCookies, setCookies} from "@/utils/cookies"
+  import {getLanguage} from "@/lang"
 
   export default {
     name: 'login',
@@ -25,10 +88,44 @@
         ruleForm: {
           username: '',
           password: '',
-        }
-      };
+        },
+        items: [
+          {key: 'zh-cn', language: '简体中文'},
+          {key: 'en', language: 'English'},
+        ],
+        select: {key: getLanguage(), language: ''}
+      }
     },
+    computed: {},
     methods: {
+      toggleMarker() {
+        console.log(1);
+        this.marker = !this.marker
+      }
+      ,
+      sendMessage() {
+        console.log(2);
+        this.resetIcon()
+        this.clearMessage()
+      }
+      ,
+      clearMessage() {
+        console.log(3);
+        this.message = ''
+      }
+      ,
+      resetIcon() {
+        console.log(4);
+        this.iconIndex = 0
+      }
+      ,
+      changeIcon() {
+        console.log(5);
+        this.iconIndex === this.icons.length - 1
+          ? this.iconIndex = 0
+          : this.iconIndex++
+      }
+      ,
       submitForm(formName) {
         let that = this;
         this.$refs[formName].validate((valid) => {
@@ -66,9 +163,51 @@
           }
         });
       },
+      changeLanguage(lang) {
+        let that = this;
+        console.log(lang);
+        that.$i18n.locale = lang.key
+        setCookies('language', lang.key)
+        that.$message({
+          message: that.$i18n.t('login.changeLanguage'),
+          type: 'success'
+        })
+
+      },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
     }
   }
 </script>
+<style>
+  .login {
+    padding: 0 0 10px 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .login-box {
+    width: 375px;
+    padding: 20px 40px 0;
+  }
+
+  .btn-box {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .huadong {
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    background: bisque;
+  }
+
+  .select-language {
+    margin-left: 10px !important;
+    width: 150px;
+  }
+</style>
