@@ -52,12 +52,14 @@
         <v-btn
             text
             color="#5aa6f8"
+            @click="toSignup()"
         >
           注册新账户
         </v-btn>
         <v-btn
             width="100"
             color="#5aa6f8"
+            @click="login()"
         >
           登录
         </v-btn>
@@ -98,70 +100,42 @@
     },
     computed: {},
     methods: {
-      toggleMarker() {
-        console.log(1);
-        this.marker = !this.marker
-      }
-      ,
-      sendMessage() {
-        console.log(2);
-        this.resetIcon()
-        this.clearMessage()
-      }
-      ,
-      clearMessage() {
-        console.log(3);
-        this.message = ''
-      }
-      ,
-      resetIcon() {
-        console.log(4);
-        this.iconIndex = 0
-      }
-      ,
-      changeIcon() {
-        console.log(5);
-        this.iconIndex === this.icons.length - 1
-          ? this.iconIndex = 0
-          : this.iconIndex++
-      }
-      ,
-      submitForm(formName) {
+      login() {
         let that = this;
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            that.disabled = true;
-            let params = {
-              username: that.ruleForm.username,
-              password: that.ruleForm.password,
-            };
-            that.$store.dispatch("user/login", params).then(res => {
-              console.log(res);
-              if (res.code == 1) {
-                console.log(that.otherQuery);
-                that.$router.push({
-                  path: that.redirect || "/",
-                  query: that.otherQuery
-                });
-                that.$message({
-                  message: res.msg,
-                  type: "success"
-                });
-              } else {
-                that.$message({
-                  message: res.msg,
-                  type: "error",
-                  duration: 5 * 1000
-                });
-                that.disabled = false;
-                that.checkImgIndex++
-              }
+        let params = {
+          username: that.ruleForm.username,
+          password: that.ruleForm.password,
+        };
+        that.$store.dispatch("user/login", params).then(res => {
+          console.log(res);
+          if (res.code == 1) {
+            console.log(that.otherQuery);
+            that.$router.push({
+              path: that.redirect || "/",
+              query: that.otherQuery
+            });
+            that.$message({
+              message: res.msg,
+              type: "success"
             });
           } else {
-            console.log('error submit!!');
-            return false;
+            that.$message({
+              message: res.msg,
+              type: "error",
+              duration: 5 * 1000
+            });
+            that.disabled = false;
+            that.checkImgIndex++
           }
         });
+      },
+      toSignup() {
+        this.$router.push(
+          {
+            path: '/signup',
+            name: 'signup',
+          }
+        )
       },
       changeLanguage(lang) {
         let that = this;

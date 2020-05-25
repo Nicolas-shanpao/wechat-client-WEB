@@ -31,6 +31,7 @@ _axios.interceptors.request.use(
 // respone interceptor
 _axios.interceptors.response.use(
   response => {
+    console.log(response);
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.

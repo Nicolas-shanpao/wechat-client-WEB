@@ -11,7 +11,7 @@
         <el-input v-model="ruleForm.phone" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="年龄" prop="age">
-        <el-input v-model="ruleForm.age" autocomplete="off"></el-input>
+        <el-input v-model.number="ruleForm.age" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="性别" prop="sex">
         <el-select v-model="ruleForm.sex" placeholder="请选择性别">
@@ -39,6 +39,23 @@
     name: 'signup',
     components: {},
     data() {
+      var checkAge = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('年龄不能为空'));
+        }
+        console.log(typeof value);
+        setTimeout(() => {
+          if (!Number.isInteger(value)) {
+            callback(new Error('请输入数字值'));
+          } else {
+            if (value < 18) {
+              callback(new Error('必须年满18岁'));
+            } else {
+              callback();
+            }
+          }
+        }, 1000);
+      };
       return {
         ruleForm: {
           username: '',
@@ -61,7 +78,7 @@
             {required: true, message: '请输入手机号', trigger: 'blur'}
           ],
           age: [
-            {type: 'number', required: true, message: '请输入年龄', trigger: 'blur'}
+            {validator: checkAge, trigger: 'blur'}
           ],
           sex: [
             {required: true, message: '请选择性别', trigger: 'change'}
@@ -84,6 +101,8 @@
             that.disabled = true;
             let params = {
               username: that.ruleForm.username,
+              email: that.ruleForm.email,
+              phone: that.ruleForm.phone,
               age: that.ruleForm.age,
               sex: that.ruleForm.sex,
               address: that.ruleForm.address,
