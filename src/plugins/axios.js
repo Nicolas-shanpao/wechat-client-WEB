@@ -13,12 +13,9 @@ const _axios = axios.create({
 // request interceptor
 _axios.interceptors.request.use(
   config => {
-    // if (getToken() || sessionStorage.getItem("BimPlatformstokens")) {
-    if (getToken() || sessionStorage.getItem("BimPlatformstokens")) {
+    if (getToken()) {
       // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-      config.headers["Authorization"] = getCookie("duxiang-tokens");
-      config.headers["Token"] =
-        getToken() || sessionStorage.getItem("BimPlatformstokens");
+      config.headers["Authorization"] = getToken();
     }
     return config;
   },
@@ -35,6 +32,7 @@ _axios.interceptors.response.use(
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.
+    console.log(res);
     if (res.code !== 200) {
       Message({
         message: res.message || 'Error',

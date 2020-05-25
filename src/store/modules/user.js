@@ -1,4 +1,4 @@
-import {login, signup, userList, getInfo, logout} from "@/api/user";
+import {login, signup, userList, getUserinfo, logout} from "@/api/user";
 import {
   getToken,
   setToken,
@@ -40,15 +40,11 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({username: username.trim(), password})
         .then(response => {
-          if (response.code == 1) {
+          if (response.code == 200) {
             const {data} = response;
-            let token = data.userinfo.token;
+            let token = data.token;
             commit("SET_TOKEN", token);
-            // if (checked) {
             setToken(token);
-            // } else {
-            //   sessionStorage.setItem("BimPlatformstokens", token);
-            // }
           }
           resolve(response);
         })
@@ -103,9 +99,9 @@ const actions = {
     });
   },
   // 获取用户信息
-  getInfo({commit}) {
+  getUserinfo({commit}) {
     return new Promise((resolve, reject) => {
-      getInfo()
+      getUserinfo()
         .then(response => {
           const {data} = response;
           if (!data) {

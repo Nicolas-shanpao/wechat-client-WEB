@@ -27,9 +27,9 @@ export function userList(params) {
   });
 }
 
-export function getInfo() {
+export function getUserinfo() {
   return axios({
-    url: api.get_userinfo,
+    url: api.getUserinfo,
     method: "get"
   });
 }

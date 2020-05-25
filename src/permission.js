@@ -3,12 +3,12 @@ import store from "./store";
 // import { Message } from 'element-ui'
 import NProgress from "nprogress"; // progress bar
 import "nprogress/nprogress.css"; // progress bar style
-import { getToken } from "@/utils/cookies"; // get token from cookie
+import {getToken} from "@/utils/cookies"; // get token from cookie
 // import getPageTitle from '@/utils/get-page-title'
 
-NProgress.configure({ showSpinner: false }); // NProgress Configuration
+NProgress.configure({showSpinner: false}); // NProgress Configuration
 
-const whiteList = ["/login","/signup","/home"]; // no redirect whitelist
+const whiteList = ["/login", "/signup", "/home"]; // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
   // start progress bar
@@ -17,31 +17,31 @@ router.beforeEach(async (to, from, next) => {
   // document.title = getPageTitle(to.meta.title)
   // 检验用户是否登录
   // const hasToken = getToken() || sessionStorage.getItem("BimPlatformstokens");
-  const hasToken = getToken() || sessionStorage.getItem("BimPlatformstokens");
+  const hasToken = getToken();
   // 检验是否获取用户信息
   // 存在token
   if (hasToken) {
     if (to.path === "/login") {
       // if is logged in, redirect to the home page
-      next({ path: "/" });
+      next({path: "/"});
       NProgress.done();
     } else {
-      let hasGetRoles = store.state.user.roles;
-      if (hasGetRoles) {
+      // let hasGetRoles = store.state.user.roles;
+      // if (hasGetRoles) {
+      //   next();
+      // } else {
+      try {
+        // get user info
+        await store.dispatch("user/getUserinfo");
         next();
-      } else {
-        try {
-          // get user info
-          await store.dispatch("user/getInfo");
-          next();
-        } catch (error) {
-          // remove token and go to login page to re-login
-          await store.dispatch("user/logout");
-          // Message.error(error || 'Has Error')
-          next(`/login?redirect=${to.path}`);
-          NProgress.done();
-        }
+      } catch (error) {
+        // remove token and go to login page to re-login
+        await store.dispatch("user/logout");
+        // Message.error(error || 'Has Error')
+        next(`/login?redirect=${to.path}`);
+        NProgress.done();
       }
+      // }
     }
   } else {
     /* has no token*/
