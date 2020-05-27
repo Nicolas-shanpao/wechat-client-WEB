@@ -1,39 +1,176 @@
 <template>
-  <div class="home">
-    <el-form :model="ruleForm" :rules="rules" status-icon ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="账号" prop="username">
-        <el-input v-model="ruleForm.username" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="邮箱" prop="email">
-        <el-input v-model="ruleForm.email" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="手机" prop="phone">
-        <el-input v-model="ruleForm.phone" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="年龄" prop="age">
-        <el-input v-model.number="ruleForm.age" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="性别" prop="sex">
-        <el-select v-model="ruleForm.sex" placeholder="请选择性别">
-          <el-option label="男" value="0"></el-option>
-          <el-option label="女" value="1"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="地址" prop="address">
-        <el-input v-model="ruleForm.address" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+  <v-card
+      max-width="600"
+      class="mx-auto signup"
+      :loading="loading"
+  >
+    <v-list-item>
+      <v-list-item-avatar color="#5aa6f8">
+        <img src="@/assets/image/logo.png" alt="" class="logo-image"/>
+
+      </v-list-item-avatar>
+      <v-list-item-content>
+        <v-list-item-title class="headline">{{$t('signup.title')}}</v-list-item-title>
+        <v-list-item-subtitle>
+          {{$t('signup.subtitle')}}
+        </v-list-item-subtitle>
+      </v-list-item-content>
+    </v-list-item>
+    <div class="signup-box">
+      <v-form
+          ref="loginform"
+          v-model="valid"
+      >
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+                dense
+                v-model="ruleForm.username"
+                filled
+                :label="$t('signup.account')"
+                outlined
+                clearable
+                :rules="rules.username"
+                type="text"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <v-text-field
+                dense
+                v-model="ruleForm.email"
+                filled
+                :label="$t('signup.email')"
+                outlined
+                clearable
+                :rules="rules.email"
+                type="text"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <!--email-->
+            <v-text-field
+                dense
+                v-model="ruleForm.email"
+                filled
+                :label="$t('signup.account')"
+                outlined
+                clearable
+                :rules="rules.email"
+                type="text"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <!--phone-->
+            <v-text-field
+                dense
+                v-model="ruleForm.phone"
+                filled
+                :label="$t('signup.account')"
+                outlined
+                clearable
+                :rules="rules.phone"
+                type="text"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <!--age-->
+            <v-text-field
+                dense
+                v-model="ruleForm.age"
+                filled
+                :label="$t('signup.account')"
+                outlined
+                clearable
+                :rules="rules.age"
+                type="text"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <!--sex-->
+            <v-text-field
+                dense
+                v-model="ruleForm.sex"
+                filled
+                :label="$t('signup.account')"
+                outlined
+                clearable
+                :rules="rules.sex"
+                type="text"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <!--address-->
+            <v-text-field
+                dense
+                v-model="ruleForm.address"
+                filled
+                :label="$t('signup.account')"
+                outlined
+                clearable
+                :rules="rules.address"
+                type="text"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <!--password-->
+            <v-text-field
+                dense
+                v-model="ruleForm.password"
+                filled
+                :label="$t('signup.password')"
+                outlined
+                clearable
+                :rules="rules.password"
+                type="password"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <!--password-->
+            <v-text-field
+                dense
+                v-model="ruleForm.password"
+                filled
+                :label="$t('signup.password')"
+                outlined
+                clearable
+                :rules="rules.password"
+                type="password"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-form>
+      <div class="btn-box">
+        <v-btn
+            text
+            color="#5aa6f8"
+            @click="toSignup()"
+        >
+          {{$t('login.register')}}
+        </v-btn>
+        <v-btn
+            width="100"
+            color="#5aa6f8"
+            @click="login()"
+        >
+          {{$t('login.login')}}
+        </v-btn>
+      </div>
+    </div>
+    <v-select
+        v-model="select"
+        :items="languageList"
+        :label="$t('login.language')"
+        item-text="language"
+        item-value="key"
+        return-object
+        class="select-language"
+        @change="changeLanguage"
+    ></v-select>
+  </v-card>
 </template>
 
 <script>
+  import {getLanguage} from "@/lang"
 
   export default {
     name: 'signup',
@@ -57,6 +194,8 @@
         }, 1000);
       };
       return {
+        valid: true,
+        loading: false,
         ruleForm: {
           username: '',
           email: '',
@@ -66,31 +205,43 @@
           address: '',
           password: '',
         },
+
         rules: {
           username: [
-            {required: true, message: '请输入用户名', trigger: 'blur'},
-            {min: 5, max: 12, message: '长度在 5 到 12 个字符', trigger: 'blur'}
+            v => !!v || this.$t('errorMsg.account'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
           email: [
-            {required: true, message: '请输入邮箱', trigger: 'blur'}
+            v => !!v || this.$t('errorMsg.account'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
           phone: [
-            {required: true, message: '请输入手机号', trigger: 'blur'}
+            v => !!v || this.$t('errorMsg.account'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
           age: [
-            {validator: checkAge, trigger: 'blur'}
+            v => !!v || this.$t('errorMsg.account'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
           sex: [
-            {required: true, message: '请选择性别', trigger: 'change'}
+            v => !!v || this.$t('errorMsg.account'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
           address: [
-            {required: true, message: '请输入用户地址', trigger: 'blur'}
+            v => !!v || this.$t('errorMsg.account'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
           password: [
-            {required: true, message: '请输入密码', trigger: 'blur'},
-            {min: 5, max: 12, message: '长度在 5 到 12 个字符', trigger: 'blur'}
+            v => !!v || this.$t('errorMsg.password'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ]
-        }
+        },
+        picker: new Date().toISOString().substr(0, 10),
+        languageList: [
+          {key: 'zh-cn', language: '简体中文'},
+          {key: 'en', language: 'English'},
+        ],
+        select: {key: getLanguage(), language: ''}
       }
     },
     methods: {
@@ -136,9 +287,49 @@
           }
         });
       },
+      changeLanguage(lang) {
+        let that = this;
+        console.log(lang);
+        that.$i18n.locale = lang.key
+        that.$vuetify.lang.current = lang.key
+        setCookies('language', lang.key)
+        that.$message({
+          message: that.$i18n.t('login.changeLanguage'),
+          type: 'success'
+        })
+
+      },
       resetForm(formName) {
         this.$refs[formName].resetFields();
       }
     }
   }
 </script>
+<style scoped>
+  .signup {
+    padding: 0 0 10px 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .signup-box {
+    width: 500px;
+    padding: 20px 40px 0;
+  }
+
+  .btn-box {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .col {
+    padding: 0 12px;
+  }
+
+  .select-language {
+    margin-left: 10px !important;
+    width: 150px;
+  }
+</style>

@@ -1,14 +1,15 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
 import zhHans from 'vuetify/es5/locale/zh-Hans';
+import en from 'vuetify/es5/locale/en';
 
 Vue.use(Vuetify);
 
 export default new Vuetify({
   theme: {
-      options: {
-        customProperties: true,
-      },
+    options: {
+      customProperties: true,
+    },
     themes: {
       light: {
         primary: '#5aa6f8',
@@ -21,8 +22,8 @@ export default new Vuetify({
       },
     },
   },
-    lang: {
-      locales: { zhHans },
-      current: 'zh-Hans',
-    },
+  lang: {
+    locales: {'zh-cn': zhHans, en},
+    current: 'zh-cn',
+  },
 });

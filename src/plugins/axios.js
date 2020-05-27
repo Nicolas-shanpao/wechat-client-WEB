@@ -34,6 +34,9 @@ _axios.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     console.log(res);
     if (res.code !== 200) {
+      if (res.code === 401) {
+        return res
+      }
       Message({
         message: res.message || 'Error',
         type: res.type,
