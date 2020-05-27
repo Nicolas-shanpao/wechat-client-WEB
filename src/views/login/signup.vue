@@ -1,8 +1,8 @@
 <template>
   <v-card
-      max-width="600"
-      class="mx-auto signup"
-      :loading="loading"
+    max-width="600"
+    class="mx-auto signup"
+    :loading="loading"
   >
     <v-list-item>
       <v-list-item-avatar color="#5aa6f8">
@@ -18,159 +18,162 @@
     </v-list-item>
     <div class="signup-box">
       <v-form
-          ref="loginform"
-          v-model="valid"
+        ref="signupform"
+        v-model="valid"
       >
         <v-row>
           <v-col cols="6">
             <v-text-field
-                dense
-                v-model="ruleForm.username"
-                filled
-                :label="$t('signup.account')"
-                outlined
-                clearable
-                :rules="rules.username"
-                type="text"
+              dense
+              v-model="ruleForm.username"
+              filled
+              :label="$t('signup.account')"
+              outlined
+              clearable
+              :rules="rules.username"
+              type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
             <v-text-field
-                dense
-                v-model="ruleForm.email"
-                filled
-                :label="$t('signup.email')"
-                outlined
-                clearable
-                :rules="rules.email"
-                type="text"
+              dense
+              v-model="ruleForm.nikename"
+              filled
+              :label="$t('signup.nikename')"
+              outlined
+              clearable
+              :rules="rules.nikename"
+              type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
             <!--email-->
             <v-text-field
-                dense
-                v-model="ruleForm.email"
-                filled
-                :label="$t('signup.account')"
-                outlined
-                clearable
-                :rules="rules.email"
-                type="text"
+              dense
+              v-model="ruleForm.email"
+              filled
+              :label="$t('signup.email')"
+              outlined
+              clearable
+              :rules="rules.email"
+              type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
             <!--phone-->
             <v-text-field
-                dense
-                v-model="ruleForm.phone"
-                filled
-                :label="$t('signup.account')"
-                outlined
-                clearable
-                :rules="rules.phone"
-                type="text"
+              dense
+              v-model="ruleForm.phone"
+              filled
+              :label="$t('signup.phone')"
+              outlined
+              clearable
+              :rules="rules.phone"
+              type="text"
             ></v-text-field>
           </v-col>
-          <v-col cols="12">
+          <v-col cols="6">
             <!--age-->
             <v-text-field
-                dense
-                v-model="ruleForm.age"
-                filled
-                :label="$t('signup.account')"
-                outlined
-                clearable
-                :rules="rules.age"
-                type="text"
+              dense
+              v-model="ruleForm.age"
+              filled
+              :label="$t('signup.age')"
+              outlined
+              clearable
+              :rules="rules.age"
+              type="text"
             ></v-text-field>
           </v-col>
-          <v-col cols="12">
+          <v-col cols="6">
             <!--sex-->
-            <v-text-field
-                dense
-                v-model="ruleForm.sex"
-                filled
-                :label="$t('signup.account')"
-                outlined
-                clearable
-                :rules="rules.sex"
-                type="text"
-            ></v-text-field>
+            <v-select
+              dense
+              v-model="ruleForm.sex"
+              :items="sexList"
+              :label="$t('signup.sex')"
+              item-text="valve"
+              item-value="key"
+              return-object
+              class="select-language"
+              @change="changeSex"
+            ></v-select>
+
           </v-col>
           <v-col cols="12">
             <!--address-->
             <v-text-field
-                dense
-                v-model="ruleForm.address"
-                filled
-                :label="$t('signup.account')"
-                outlined
-                clearable
-                :rules="rules.address"
-                type="text"
+              dense
+              v-model="ruleForm.address"
+              filled
+              :label="$t('signup.address')"
+              outlined
+              clearable
+              :rules="rules.address"
+              type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
             <!--password-->
             <v-text-field
-                dense
-                v-model="ruleForm.password"
-                filled
-                :label="$t('signup.password')"
-                outlined
-                clearable
-                :rules="rules.password"
-                type="password"
+              dense
+              v-model="ruleForm.password"
+              filled
+              :label="$t('signup.password')"
+              outlined
+              clearable
+              :rules="rules.password"
+              type="password"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
             <!--password-->
             <v-text-field
-                dense
-                v-model="ruleForm.password"
-                filled
-                :label="$t('signup.password')"
-                outlined
-                clearable
-                :rules="rules.password"
-                type="password"
+              dense
+              v-model="ruleForm.password"
+              filled
+              :label="$t('signup.password')"
+              outlined
+              clearable
+              :rules="rules.password"
+              type="password"
             ></v-text-field>
           </v-col>
         </v-row>
       </v-form>
       <div class="btn-box">
         <v-btn
-            text
-            color="#5aa6f8"
-            @click="toSignup()"
+          text
+          color="#5aa6f8"
+          @click="toLogin()"
         >
-          {{$t('login.register')}}
+          {{$t('signup.login')}}
         </v-btn>
         <v-btn
-            width="100"
-            color="#5aa6f8"
-            @click="login()"
+          width="100"
+          color="#5aa6f8"
+          @click="signup()"
         >
-          {{$t('login.login')}}
+          {{$t('signup.register')}}
         </v-btn>
       </div>
     </div>
     <v-select
-        v-model="select"
-        :items="languageList"
-        :label="$t('login.language')"
-        item-text="language"
-        item-value="key"
-        return-object
-        class="select-language"
-        @change="changeLanguage"
+      v-model="select"
+      :items="languageList"
+      :label="$t('login.language')"
+      item-text="language"
+      item-value="key"
+      return-object
+      class="select-language"
+      @change="changeLanguage"
     ></v-select>
   </v-card>
 </template>
 
 <script>
   import {getLanguage} from "@/lang"
+  import {getCookies, setCookies} from "@/utils/cookies"
 
   export default {
     name: 'signup',
@@ -196,18 +199,27 @@
       return {
         valid: true,
         loading: false,
+        sexList: [
+          {key: 'man', valve: this.$t('sex.man')},
+          {key: 'woman', valve: this.$t('sex.woman')},
+          {key: 'other', valve: this.$t('sex.other')},
+        ],
         ruleForm: {
           username: '',
+          nikename:'',
           email: '',
           phone: '',
           age: '',
-          sex: '',
+          sex: {key: '', value: ''},
           address: '',
           password: '',
         },
-
         rules: {
           username: [
+            v => !!v || this.$t('errorMsg.account'),
+            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+          ],
+          nikename: [
             v => !!v || this.$t('errorMsg.account'),
             v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
@@ -236,7 +248,6 @@
             v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ]
         },
-        picker: new Date().toISOString().substr(0, 10),
         languageList: [
           {key: 'zh-cn', language: '简体中文'},
           {key: 'en', language: 'English'},
@@ -245,47 +256,54 @@
       }
     },
     methods: {
-      submitForm(formName) {
+      signup() {
         let that = this;
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            that.disabled = true;
-            let params = {
-              username: that.ruleForm.username,
-              email: that.ruleForm.email,
-              phone: that.ruleForm.phone,
-              age: that.ruleForm.age,
-              sex: that.ruleForm.sex,
-              address: that.ruleForm.address,
-              password: that.ruleForm.password,
-            };
-            that.$store.dispatch("user/signup", params).then(res => {
-              console.log(res);
-              if (res.code == 1) {
-                console.log(that.otherQuery);
-                that.$router.push({
-                  path: that.redirect || "/",
-                  query: that.otherQuery
-                });
-                that.$message({
-                  message: res.msg,
-                  type: "success"
-                });
-              } else {
-                that.$message({
-                  message: res.msg,
-                  type: "error",
-                  duration: 5 * 1000
-                });
-                that.disabled = false;
-                that.checkImgIndex++
-              }
-            });
-          } else {
-            console.log('error submit!!');
-            return false;
+        let valid = this.$refs.signupform.validate()
+        if (valid) {
+          that.disabled = true;
+          let params = {
+            username: that.ruleForm.username,
+            email: that.ruleForm.email,
+            phone: that.ruleForm.phone,
+            age: that.ruleForm.age,
+            sex: that.ruleForm.sex.value,
+            address: that.ruleForm.address,
+            password: that.ruleForm.password,
+          };
+          that.$store.dispatch("user/signup", params).then(res => {
+            console.log(res);
+            if (res.code == 1) {
+              console.log(that.otherQuery);
+              that.$router.push({
+                path: that.redirect || "/",
+                query: that.otherQuery
+              });
+              that.$message({
+                message: res.msg,
+                type: "success"
+              });
+            } else {
+              that.$message({
+                message: res.msg,
+                type: "error",
+                duration: 5 * 1000
+              });
+              that.disabled = false;
+              that.checkImgIndex++
+            }
+          });
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      },
+      toLogin() {
+        this.$router.push(
+          {
+            path: '/login',
+            name: 'login',
           }
-        });
+        )
       },
       changeLanguage(lang) {
         let that = this;
@@ -297,7 +315,11 @@
           message: that.$i18n.t('login.changeLanguage'),
           type: 'success'
         })
-
+      },
+      changeSex(value) {
+        let that = this;
+        console.log(value);
+        console.log(that.ruleForm.sex);
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
