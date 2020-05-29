@@ -1,8 +1,8 @@
 <template>
   <v-card
-    max-width="600"
-    class="mx-auto signup"
-    :loading="loading"
+      max-width="600"
+      class="mx-auto signup"
+      :loading="loading"
   >
     <v-list-item>
       <v-list-item-avatar color="#5aa6f8">
@@ -18,155 +18,156 @@
     </v-list-item>
     <div class="signup-box">
       <v-form
-        ref="signupform"
-        v-model="valid"
+          ref="signupform"
+          v-model="valid"
       >
         <v-row>
           <v-col cols="6">
             <v-text-field
-              dense
-              v-model="ruleForm.username"
-              filled
-              :label="$t('signup.account')"
-              outlined
-              clearable
-              :rules="rules.username"
-              type="text"
+                dense
+                v-model="ruleForm.username"
+                filled
+                :label="$t('signup.account')"
+                outlined
+                clearable
+                :rules="rules.username"
+                type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
             <v-text-field
-              dense
-              v-model="ruleForm.nikename"
-              filled
-              :label="$t('signup.nikename')"
-              outlined
-              clearable
-              :rules="rules.nikename"
-              type="text"
+                dense
+                v-model="ruleForm.nikename"
+                filled
+                :label="$t('signup.nikename')"
+                outlined
+                clearable
+                :rules="rules.nikename"
+                type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
             <!--email-->
             <v-text-field
-              dense
-              v-model="ruleForm.email"
-              filled
-              :label="$t('signup.email')"
-              outlined
-              clearable
-              :rules="rules.email"
-              type="text"
+                dense
+                v-model="ruleForm.email"
+                filled
+                :label="$t('signup.email')"
+                outlined
+                clearable
+                :rules="rules.email"
+                type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="12">
             <!--phone-->
             <v-text-field
-              dense
-              v-model="ruleForm.phone"
-              filled
-              :label="$t('signup.phone')"
-              outlined
-              clearable
-              :rules="rules.phone"
-              type="text"
+                dense
+                v-model="ruleForm.phone"
+                filled
+                :label="$t('signup.phone')"
+                outlined
+                clearable
+                :rules="rules.phone"
+                type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
             <!--age-->
             <v-text-field
-              dense
-              v-model="ruleForm.age"
-              filled
-              :label="$t('signup.age')"
-              outlined
-              clearable
-              :rules="rules.age"
-              type="text"
+                dense
+                v-model="ruleForm.age"
+                filled
+                :label="$t('signup.age')"
+                outlined
+                clearable
+                :rules="rules.age"
+                type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
             <!--sex-->
             <v-select
-              dense
-              v-model="ruleForm.sex"
-              :items="sexList"
-              :label="$t('signup.sex')"
-              item-text="valve"
-              item-value="key"
-              return-object
-              class="select-language"
-              @change="changeSex"
+                dense
+                v-model="ruleForm.sex"
+                :items="sexList"
+                :label="$t('signup.sex')"
+                item-text="valve"
+                item-value="key"
+                return-object
+                class="select-language"
+                @change="changeSex"
             ></v-select>
 
           </v-col>
           <v-col cols="12">
             <!--address-->
             <v-text-field
-              dense
-              v-model="ruleForm.address"
-              filled
-              :label="$t('signup.address')"
-              outlined
-              clearable
-              :rules="rules.address"
-              type="text"
+                dense
+                v-model="ruleForm.address"
+                filled
+                :label="$t('signup.address')"
+                outlined
+                clearable
+                :rules="rules.address"
+                type="text"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
             <!--password-->
             <v-text-field
-              dense
-              v-model="ruleForm.password"
-              filled
-              :label="$t('signup.password')"
-              outlined
-              clearable
-              :rules="rules.password"
-              type="password"
+                dense
+                v-model="ruleForm.password"
+                filled
+                :label="$t('signup.password')"
+                outlined
+                clearable
+                :rules="rules.password"
+                type="password"
             ></v-text-field>
           </v-col>
           <v-col cols="6">
-            <!--password-->
+            <!--repassword-->
             <v-text-field
-              dense
-              v-model="ruleForm.password"
-              filled
-              :label="$t('signup.password')"
-              outlined
-              clearable
-              :rules="rules.password"
-              type="password"
+                dense
+                v-model="ruleForm.repassword"
+                filled
+                :label="$t('signup.password')"
+                outlined
+                clearable
+                :validate-on-blur="true"
+                :rules="rules.repassword"
+                type="password"
             ></v-text-field>
           </v-col>
         </v-row>
       </v-form>
       <div class="btn-box">
         <v-btn
-          text
-          color="#5aa6f8"
-          @click="toLogin()"
+            text
+            color="#5aa6f8"
+            @click="toLogin()"
         >
           {{$t('signup.login')}}
         </v-btn>
         <v-btn
-          width="100"
-          color="#5aa6f8"
-          @click="signup()"
+            width="100"
+            color="#5aa6f8"
+            @click="signup()"
         >
           {{$t('signup.register')}}
         </v-btn>
       </div>
     </div>
     <v-select
-      v-model="select"
-      :items="languageList"
-      :label="$t('login.language')"
-      item-text="language"
-      item-value="key"
-      return-object
-      class="select-language"
-      @change="changeLanguage"
+        v-model="select"
+        :items="languageList"
+        :label="$t('login.language')"
+        item-text="language"
+        item-value="key"
+        return-object
+        class="select-language"
+        @change="changeLanguage"
     ></v-select>
   </v-card>
 </template>
@@ -206,46 +207,40 @@
         ],
         ruleForm: {
           username: '',
-          nikename:'',
+          nikename: '',
           email: '',
           phone: '',
           age: '',
           sex: {key: '', value: ''},
           address: '',
           password: '',
+          repassword: '',
         },
         rules: {
           username: [
             v => !!v || this.$t('errorMsg.account'),
             v => (v && v.length <= 10) || 'Name must be less than 10 characters',
           ],
-          nikename: [
-            v => !!v || this.$t('errorMsg.account'),
-            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-          ],
-          email: [
-            v => !!v || this.$t('errorMsg.account'),
-            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-          ],
-          phone: [
-            v => !!v || this.$t('errorMsg.account'),
-            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-          ],
-          age: [
-            v => !!v || this.$t('errorMsg.account'),
-            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-          ],
-          sex: [
-            v => !!v || this.$t('errorMsg.account'),
-            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-          ],
-          address: [
-            v => !!v || this.$t('errorMsg.account'),
-            v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-          ],
+          nikename: [],
+          email: [],
+          phone: [],
+          age: [],
+          sex: [],
+          address: [],
           password: [
             v => !!v || this.$t('errorMsg.password'),
             v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+          ],
+          repassword: [
+            v => !!v || this.$t('errorMsg.password'),
+            v => {
+              console.log(v);
+              if (v == this.ruleForm.password) {
+                return true
+              } else {
+                return '两次密码不同'
+              }
+            },
           ]
         },
         languageList: [
@@ -271,8 +266,7 @@
             password: that.ruleForm.password,
           };
           that.$store.dispatch("user/signup", params).then(res => {
-            console.log(res);
-            if (res.code == 1) {
+            if (res.code == 200) {
               console.log(that.otherQuery);
               that.$router.push({
                 path: that.redirect || "/",
