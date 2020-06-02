@@ -106,7 +106,7 @@ module.exports = {
   css: {
     // extract: true,
     sourceMap: true,
-    modules: false,
+    requireModuleExtension: true,
     loaderOptions: {},
   },
   lintOnSave: true,

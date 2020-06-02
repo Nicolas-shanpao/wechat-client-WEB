@@ -22,9 +22,21 @@ const routes = [
   },
   {
     path: '/',
-    name: 'home',
-    component: () => import( '../views/home/home.vue')
-  }
+    component: () => import( '../views/home/home.vue'),
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: () => import( '../views/dashboard/DashBoard.vue'),
+      },
+      {
+        path: 'articleList',
+        name: 'articleList',
+        component: () => import( '../views/articlelist/ArticleList.vue')
+      }
+    ]
+  },
+
 ]
 
 const router = new VueRouter({

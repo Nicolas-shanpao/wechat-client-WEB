@@ -16,3 +16,9 @@
     }),
   };
 </script>
+<style>
+  html {
+    height: 100vh;
+    overflow-y: auto!important;
+  }
+</style>

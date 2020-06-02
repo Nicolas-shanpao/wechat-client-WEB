@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div class="home">
     <v-navigation-drawer
         v-model="drawer"
         :color="color"
         absolute
         dark
         app
-        :temporary="true"
     >
       <v-list
           dense
@@ -21,12 +20,18 @@
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>Application</v-list-item-title>
-            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+            <v-list-item-title>大前端知识点</v-list-item-title>
+            <v-list-item-subtitle>技术</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
         <v-divider></v-divider>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
         <v-list-item-group
             v-model="activeGroup"
             active-class="deep-purple--text text--accent-4"
@@ -35,6 +40,7 @@
               v-for="item in items"
               :key="item.path"
               link
+              @click="changeMenu(item)"
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -50,18 +56,19 @@
 
     <v-app-bar app>
       <!-- -->
-      <v-btn icon v-if="!drawer" @click="showMenu()">
+      <v-btn icon @click="showMenu()">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
     </v-app-bar>
 
     <!-- Sizes your content based upon application components -->
-    <v-content>
+    <v-content class="main">
 
       <!-- Provides the application the proper gutter -->
       <v-container fluid>
 
         <!-- If using vue-router -->
+        {{activeGroup}}
         <router-view></router-view>
       </v-container>
     </v-content>
@@ -76,8 +83,8 @@
         drawer: true,
         items: [
           {title: '首页', icon: 'mdi-view-dashboard', path: '/'},
-          {title: '首页', icon: 'mdi-view-dashboard', path: '/a'},
-          {title: '首页', icon: 'mdi-view-dashboard', path: '/b'},
+          {title: '文章', icon: 'mdi-view-dashboard', path: '/articleList'},
+          {title: '录入', icon: 'mdi-view-dashboard', path: '/add'},
         ],
         color: 'blue',
         colors: [
@@ -90,22 +97,37 @@
         permanent: false,
         temporary: false,
         miniVariant: false,
-        activeGroup: null
+        activeGroup: 0
       }
     },
     computed: {},
     mounted() {
-      console.log(this.drawer);
     },
     methods: {
       showMenu() {
-        this.temporary = true
-        this.drawer = true
+        this.drawer = !this.drawer
+      },
+      changeMenu(v) {
+        console.log(v);
+        this.$router.push(
+          {
+            path: v.path
+          }
+        )
       }
     }
   }
 </script>
 
 <style scoped>
+  .home {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
 
+  .main {
+    height: 100%;
+    overflow: hidden;
+  }
 </style>
