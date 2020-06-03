@@ -1,110 +1,123 @@
 <template>
-  <div class="home">
-    <v-navigation-drawer
-        v-model="drawer"
-        :color="color"
-        absolute
-        dark
-        app
-    >
-      <v-list
-          dense
-          nav
-          class="py-0"
-      >
-        <v-list-item
-            two-line
-            class="px-0">
-          <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/men/81.jpg">
-          </v-list-item-avatar>
+  <el-container class="home">
+    <el-aside width="300px" class="home-aside">
+      <v-list-item two-line :class="miniVariant && 'px-0'">
+        <v-list-item-avatar>
+          <img src="https://randomuser.me/api/portraits/men/81.jpg">
+        </v-list-item-avatar>
 
-          <v-list-item-content>
-            <v-list-item-title>大前端知识点</v-list-item-title>
-            <v-list-item-subtitle>技术</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>Application</v-list-item-title>
+          <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <el-menu
+          default-active="2"
+          class="el-menu-vertical-demo u_scrollBar"
+          @open="handleOpen"
+          @close="handleClose"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b">
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>导航一</span>
+          </template>
+          <el-menu-item-group>
+            <template slot="title">分组一</template>
+            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-2">选项2</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group title="分组2">
+            <el-menu-item index="1-3">选项3</el-menu-item>
+          </el-menu-item-group>
+          <el-submenu index="1-4">
+            <template slot="title">选项4</template>
+            <el-menu-item index="1-4-1">选项1</el-menu-item>
+          </el-submenu>
+        </el-submenu>
+        <el-menu-item index="2">
+          <i class="el-icon-menu"></i>
+          <span slot="title">导航二</span>
+        </el-menu-item>
+        <el-menu-item index="3" disabled>
+          <i class="el-icon-document"></i>
+          <span slot="title">导航三</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <i class="el-icon-setting"></i>
+          <span slot="title">导航四</span>
+        </el-menu-item>
 
-        <v-divider></v-divider>
-        <v-list-item active-class="pink--text">
-          <v-list-item-icon>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-icon>
-          <v-list-item-title>Home</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar app>
-      <!-- -->
-      <v-btn icon @click="showMenu()">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <!-- Sizes your content based upon application components -->
-    <v-content class="main">
-
-      <!-- Provides the application the proper gutter -->
-      <v-container fluid>
-
-        <!-- If using vue-router -->
-        {{activeGroup}}
-        <router-view></router-view>
-      </v-container>
-    </v-content>
-  </div>
+      </el-menu>
+    </el-aside>
+    <el-container>
+      <el-header>Header</el-header>
+      <el-main>Main</el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script>
   export default {
     name: "home",
     data() {
-      return {
-        drawer: true,
-        items: [
-          {title: '工作台', icon: 'mdi-view-dashboard', path: '/'},
-          {title: '文章', icon: 'mdi-view-dashboard', path: '/articleList'},
-          {title: '录入', icon: 'mdi-view-dashboard', path: '/add'},
-        ],
-        color: 'blue',
-        colors: [
-          'primary',
-          'blue',
-          'success',
-          'red',
-          'teal',
-        ],
-        permanent: false,
-        temporary: false,
-        miniVariant: false,
-        activeGroup: 0,
-        admins: [
-          ['Management', 'people_outline'],
-          ['Settings', 'settings'],
-        ],
-        cruds: [
-          ['Create', 'add'],
-          ['Read', 'insert_drive_file'],
-          ['Update', 'update'],
-          ['Delete', 'delete'],
-        ],
-      }
+      return {}
     },
     computed: {},
     mounted() {
     },
     methods: {
-      showMenu() {
-        this.drawer = !this.drawer
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
       },
-      changeMenu(v) {
-        console.log(v);
-        this.$router.push(
-          {
-            path: v.path
-          }
-        )
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
       }
     }
   }
@@ -112,13 +125,17 @@
 
 <style scoped>
   .home {
-    width: 100%;
     height: 100vh;
     overflow: hidden;
   }
 
-  .main {
-    height: 100%;
-    overflow: hidden;
+  .home-aside {
+    /*height: 100%;*/
+  }
+
+  .el-menu-vertical-demo {
+    height: calc(100% - 72px);
+    width: 300px;
+    overflow-y: scroll;
   }
 </style>
