@@ -26,31 +26,12 @@
         </v-list-item>
 
         <v-divider></v-divider>
-        <v-list-item>
+        <v-list-item active-class="pink--text">
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
           <v-list-item-title>Home</v-list-item-title>
         </v-list-item>
-        <v-list-item-group
-            v-model="activeGroup"
-            active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item
-              v-for="item in items"
-              :key="item.path"
-              link
-              @click="changeMenu(item)"
-          >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
 
@@ -82,7 +63,7 @@
       return {
         drawer: true,
         items: [
-          {title: '首页', icon: 'mdi-view-dashboard', path: '/'},
+          {title: '工作台', icon: 'mdi-view-dashboard', path: '/'},
           {title: '文章', icon: 'mdi-view-dashboard', path: '/articleList'},
           {title: '录入', icon: 'mdi-view-dashboard', path: '/add'},
         ],
@@ -97,7 +78,17 @@
         permanent: false,
         temporary: false,
         miniVariant: false,
-        activeGroup: 0
+        activeGroup: 0,
+        admins: [
+          ['Management', 'people_outline'],
+          ['Settings', 'settings'],
+        ],
+        cruds: [
+          ['Create', 'add'],
+          ['Read', 'insert_drive_file'],
+          ['Update', 'update'],
+          ['Delete', 'delete'],
+        ],
       }
     },
     computed: {},
