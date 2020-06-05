@@ -1,25 +1,27 @@
 <template>
   <el-container class="home">
-    <el-aside class="home-aside">
-      <v-list-item two-line>
-        <v-list-item-avatar>
-          <img src="https://randomuser.me/api/portraits/men/81.jpg">
-        </v-list-item-avatar>
+    <div class="home-aside">
+      <transition name="el-fade-in-linear">
+        <v-list-item two-line :class="isCollapse && 'px-1'" class="aside-avatar">
+          <v-list-item-avatar>
+            <img src="https://randomuser.me/api/portraits/men/81.jpg">
+          </v-list-item-avatar>
 
-        <v-list-item-content>
-          <v-list-item-title>Application</v-list-item-title>
-          <v-list-item-subtitle>Subtext</v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
+          <v-list-item-content v-show="!isCollapse">
+            <v-list-item-title>Application</v-list-item-title>
+            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </transition>
       <el-menu
           default-active="2"
           class="el-menu-vertical-demo u_scrollBar"
           @open="handleOpen"
           @close="handleClose"
-          background-color="#545c64"
-          text-color="#fff"
-          :collapse="isCollapse"
-          active-text-color="#ffd04b">
+          background-color="#304156"
+          text-color="#bfcbd9"
+          active-text-color="#409EFF"
+          :collapse="isCollapse">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
@@ -46,63 +48,14 @@
           <i class="el-icon-document"></i>
           <span slot="title">导航三</span>
         </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
 
       </el-menu>
-    </el-aside>
+    </div>
     <el-container>
       <el-header>
-        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-          <el-radio-button :label="false">展开</el-radio-button>
-          <el-radio-button :label="true">收起</el-radio-button>
-        </el-radio-group>
+        <v-btn icon @click="isCollapse=!isCollapse">
+          <v-icon>mdi-menu</v-icon>
+        </v-btn>
       </el-header>
       <el-main>Main</el-main>
     </el-container>
@@ -138,17 +91,25 @@
   }
 
   .home-aside {
-    /*height: 100%;*/
-    width: 300px;
+    /*overflow: hidden;*/
+    padding-top: 72px;
+    position: relative;
+    background-color: #304156
   }
 
   .el-menu-vertical-demo {
     padding-left: 0px;
+    border-right: none;
   }
 
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 300px;
     overflow-y: scroll;
     height: calc(100% - 72px);
+  }
+
+  .aside-avatar {
+    position: absolute;
+    top: 0;
   }
 </style>
