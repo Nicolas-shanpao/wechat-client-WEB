@@ -9,46 +9,33 @@
 
           <v-list-item-content v-show="!isCollapse">
             <v-list-item-title>Application</v-list-item-title>
-            <v-list-item-subtitle>Subtext</v-list-item-subtitle>
+            <v-list-item-subtitle>{{activeMenu}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
       </transition>
       <el-menu
-          default-active="2"
+          :default-active="activeMenu"
           class="el-menu-vertical-demo u_scrollBar"
           @open="handleOpen"
           @close="handleClose"
+          @select="handleSelect"
           background-color="#304156"
           text-color="#bfcbd9"
           active-text-color="#409EFF"
           :collapse="isCollapse">
-        <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
-          </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="2">
+        <el-menu-item index="/">
           <i class="el-icon-menu"></i>
           <span slot="title">导航二</span>
         </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
-        </el-menu-item>
-
+        <el-submenu index="/Article">
+          <template slot="title">
+            <i class="el-icon-document"></i>
+            <span>文章</span>
+          </template>
+          <el-menu-item index="/ArticlePage">文章页面</el-menu-item>
+          <el-menu-item index="/ArticleList">文章列表</el-menu-item>
+          <el-menu-item index="/ArticleAdd">文章新增</el-menu-item>
+        </el-submenu>
       </el-menu>
     </div>
     <el-container>
@@ -56,8 +43,21 @@
         <v-btn icon @click="isCollapse=!isCollapse">
           <v-icon>mdi-menu</v-icon>
         </v-btn>
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -67,13 +67,30 @@
     name: "home",
     data() {
       return {
-        isCollapse: true
+        isCollapse: false
       }
     },
-    computed: {},
+    computed: {
+      activeMenu() {
+        const route = this.$route
+        const {meta, path} = route
+        console.log(meta);
+        // if set path, the sidebar will highlight the path you set
+        if (meta.activeMenu) {
+          return meta.activeMenu
+        }
+        return path
+      },
+    },
     mounted() {
     },
     methods: {
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+        this.$router.push({
+          path: key
+        })
+      },
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
@@ -111,5 +128,10 @@
   .aside-avatar {
     position: absolute;
     top: 0;
+  }
+
+  .el-header {
+    display: flex;
+    align-items: center;
   }
 </style>

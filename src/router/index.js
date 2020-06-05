@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 Vue.use(VueRouter)
 const VueRouterPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (to) {
+VueRouter.prototype.push = function push(to) {
   return VueRouterPush.call(this, to).catch(err => err)
 }
 const routes = [
@@ -34,18 +35,16 @@ const routes = [
         path: 'ArticlePage',
         name: 'ArticlePage',
         component: () => import( '../views/article/ArticlePage.vue'),
-        children: [
-          {
-            path: 'ArticleList',
-            name: 'ArticleList',
-            component: () => import( '../views/article/ArticleList.vue'),
-          },
-          {
-            path: 'ArticleAdd',
-            name: 'ArticleAdd',
-            component: () => import( '../views/article/ArticleAdd.vue'),
-          }
-        ]
+      },
+      {
+        path: 'ArticleList',
+        name: 'ArticleList',
+        component: () => import( '../views/article/ArticleList.vue'),
+      },
+      {
+        path: 'ArticleAdd',
+        name: 'ArticleAdd',
+        component: () => import( '../views/article/ArticleAdd.vue'),
       }
     ]
   },
