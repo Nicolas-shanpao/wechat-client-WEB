@@ -1,7 +1,7 @@
 <template>
   <el-container class="home">
-    <el-aside width="300px" class="home-aside">
-      <v-list-item two-line :class="miniVariant && 'px-0'">
+    <el-aside class="home-aside">
+      <v-list-item two-line>
         <v-list-item-avatar>
           <img src="https://randomuser.me/api/portraits/men/81.jpg">
         </v-list-item-avatar>
@@ -18,6 +18,7 @@
           @close="handleClose"
           background-color="#545c64"
           text-color="#fff"
+          :collapse="isCollapse"
           active-text-color="#ffd04b">
         <el-submenu index="1">
           <template slot="title">
@@ -97,7 +98,12 @@
       </el-menu>
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+          <el-radio-button :label="false">展开</el-radio-button>
+          <el-radio-button :label="true">收起</el-radio-button>
+        </el-radio-group>
+      </el-header>
       <el-main>Main</el-main>
     </el-container>
   </el-container>
@@ -107,7 +113,9 @@
   export default {
     name: "home",
     data() {
-      return {}
+      return {
+        isCollapse: true
+      }
     },
     computed: {},
     mounted() {
@@ -131,11 +139,16 @@
 
   .home-aside {
     /*height: 100%;*/
+    width: 300px;
   }
 
   .el-menu-vertical-demo {
-    height: calc(100% - 72px);
+    padding-left: 0px;
+  }
+
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 300px;
     overflow-y: scroll;
+    height: calc(100% - 72px);
   }
 </style>
