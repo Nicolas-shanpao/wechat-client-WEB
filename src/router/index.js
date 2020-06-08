@@ -32,20 +32,22 @@ const routes = [
         component: () => import( '../views/dashboard/DashBoard.vue'),
       },
       {
-        path: 'ArticlePage',
-        name: 'ArticlePage',
-        component: () => import( '../views/article/ArticlePage.vue'),
+        path: 'ArticleAdd',
+        name: 'ArticleAdd',
+        component: () => import( '../views/article/ArticleAdd.vue'),
       },
       {
         path: 'ArticleList',
         name: 'ArticleList',
         component: () => import( '../views/article/ArticleList.vue'),
+        children:[
+          {
+            path: '',
+            name: 'ArticlePage',
+            component: () => import( '../views/article/ArticlePage.vue'),
+          },
+        ]
       },
-      {
-        path: 'ArticleAdd',
-        name: 'ArticleAdd',
-        component: () => import( '../views/article/ArticleAdd.vue'),
-      }
     ]
   },
 

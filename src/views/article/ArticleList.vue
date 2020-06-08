@@ -1,65 +1,49 @@
 <template>
   <div class="ArticleList">
-    <v-treeview :items="items"></v-treeview>
+    <el-tree :data="articleList"
+             :props="defaultProps"
+             @node-click="articlePage"
+             class="tree-class"
+    ></el-tree>
+    <router-view :id="id"></router-view>
   </div>
 </template>
 
 <script>
+  import {getArticleList} from '@/api/article'
+
   export default {
     name: "ArticleList",
     data: () => ({
-      items: [
-        {
-          id: 1,
-          name: 'Applications :',
-          children: [
-            {id: 2, name: 'Calendar : app'},
-            {id: 3, name: 'Chrome : app'},
-            {id: 4, name: 'Webstorm : app'},
-          ],
-        },
-        {
-          id: 5,
-          name: 'Documents :',
-          children: [
-            {
-              id: 6,
-              name: 'vuetify :',
-              children: [
-                {
-                  id: 7,
-                  name: 'src :',
-                  children: [
-                    {id: 8, name: 'index : ts'},
-                    {id: 9, name: 'bootstrap : ts'},
-                  ],
-                },
-              ],
-            },
-            {
-              id: 10,
-              name: 'material2 :',
-              children: [
-                {
-                  id: 11,
-                  name: 'src :',
-                  children: [
-                    {id: 12, name: 'v-btn : ts'},
-                    {id: 13, name: 'v-card : ts'},
-                    {id: 14, name: 'v-window : ts'},
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      articleList: [],
+      defaultProps: {
+        children: 'children',
+        label: 'articleTitle'
+      },
+      id: ''
     }),
+    async mounted() {
+      let res = await getArticleList()
+      console.log(res.data);
+      this.articleList = res.data
+      this.id = this.articleList[0]._id
+    },
+    methods: {
+      articlePage(data) {
+        this.id = data._id
+      }
+    }
   }
 </script>
 
 <style scoped>
   .ArticleList {
+    display: flex;
+    height: 100%;
+  }
 
+  .tree-class {
+    width: 280px;
+    min-width: 280px;
   }
 </style>

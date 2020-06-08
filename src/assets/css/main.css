@@ -107,3 +107,7 @@
 .ComponentDetails-min-title .active {
   color: #1989fa;
 }
+
+.articleType-popper {
+    z-index: 10002!important;
+}

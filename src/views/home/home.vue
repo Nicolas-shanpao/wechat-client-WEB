@@ -32,7 +32,6 @@
             <i class="el-icon-document"></i>
             <span>文章</span>
           </template>
-          <el-menu-item index="/ArticlePage">文章页面</el-menu-item>
           <el-menu-item index="/ArticleList">文章列表</el-menu-item>
           <el-menu-item index="/ArticleAdd">文章新增</el-menu-item>
         </el-submenu>
