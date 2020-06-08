@@ -2,6 +2,8 @@
   <div>
     <h1>{{articleDetial.articleTitle}}</h1>
     <div v-html="articleDetial.articleContent"></div>
+    相关评论(0)
+    <div class="commentList"></div>
   </div>
 </template>
 
@@ -22,7 +24,8 @@
         author_id: '',
         updateDate: '',
         uploadDate: ''
-      }
+      },
+      commentList: {}
     }),
     watch: {
       id() {
