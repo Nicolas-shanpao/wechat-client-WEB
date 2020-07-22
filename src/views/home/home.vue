@@ -13,6 +13,7 @@
           </v-list-item-content>
         </v-list-item>
       </transition>
+      <el-link type="primary" href="http://localhost/GisIframe/set.html?uri=http://localhost/GisIframe/config/config3.json" target="_blank">主要链接</el-link>
       <el-menu
           :default-active="activeMenu"
           class="el-menu-vertical-demo u_scrollBar"
